@@ -185,7 +185,7 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
             </Link>
           ))}
           <div className="mt-8 border-t border-white/10 pt-6 text-xs tracking-wider text-surface-dark-foreground/60 uppercase">
-            Pialathara, Cheruthazham, Kannur, Kerala
+            Thaza Kayaload, Kannur, Kerala
           </div>
         </nav>
       </div>
@@ -342,7 +342,7 @@ export function SiteFooter({ dark = false }: { dark?: boolean }) {
         </div>
         <div className="site-footer-bottom">
           <span className="site-footer-copyright">
-            Pialathara, Cheruthazham, Kannur, Kerala 670741
+            Thaza Kayaload, Kannur District, Kerala 670741
           </span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a href={phoneUrl} className="site-footer-utility" aria-label="Call studio">

@@ -150,7 +150,7 @@ export default function ContactPage() {
               <address className="mt-4 text-sm not-italic leading-relaxed text-foreground/80">
                 <span className="font-semibold text-foreground">Lee Wood Interior</span>
                 <br />
-                Pialathara, Cheruthazham
+                Thaza Kayaload
                 <br />
                 Kannur District, Kerala 670741
                 <br />

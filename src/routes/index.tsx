@@ -244,6 +244,24 @@ export default function HomePage() {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Architectural Material Specialties */}
+          <div className="mt-14 border border-border bg-card p-6 sm:p-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-bronze">
+                  Quality Materials & Supply
+                </span>
+                <h4 className="mt-1 font-display text-xl font-normal text-foreground sm:text-2xl">
+                  Multiwood • Mica • Louvers • Hardware
+                </h4>
+              </div>
+              <p className="max-w-md text-xs leading-relaxed text-foreground/75 sm:text-right">
+                Quality materials for modern & durable spaces. Supplied and calibrated for coastal
+                microclimates, precision cabinetry, and lasting architectural performance.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -399,8 +417,8 @@ export default function HomePage() {
             become <span className="text-bronze">yours.</span>
           </h2>
           <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ivory/80">
-            Visit our studio at Pialathara, Cheruthazham, Kannur, or start an architectural brief
-            for your upcoming residential or commercial commission.
+            Visit our studio at Thaza Kayaload, Kannur, or start an architectural brief for your
+            upcoming residential or commercial commission.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Button

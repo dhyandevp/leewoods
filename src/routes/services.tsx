@@ -80,6 +80,29 @@ const scopeItems = [
   { title: "Bespoke Furniture Works", desc: "Dining tables, credenzas, custom seating in teak" },
 ];
 
+const materialSupplies = [
+  {
+    title: "Multiwood",
+    category: "100% Waterproof & Termite-Proof Core",
+    desc: "High-density polymer composite sheets completely immune to moisture, water logging, and termite attacks. The gold standard for wet kitchens, coastal washrooms, and damp tropical environments.",
+  },
+  {
+    title: "Mica (Laminates)",
+    category: "Architectural High-Pressure Laminates",
+    desc: "Premium tactile surface collection featuring ultra-matte anti-fingerprint finishes, organic stone textures, and authentic woodgrains engineered for scratch resistance and visual longevity.",
+  },
+  {
+    title: "Louvers",
+    category: "Linear Acoustic & Decorative Fluted Panels",
+    desc: "Precision-fluted interior wall cladding and architectural louvers that create rhythmic shadow lines, acoustic dampening, and elegant vertical texture for living rooms and feature pavilions.",
+  },
+  {
+    title: "Hardware",
+    category: "Engineered Movement & Fittings",
+    desc: "Concealed German soft-close hinges, synchronized heavy-duty drawer runners, lift-up systems, and architectural bronze handles designed for effortless, lifelong tactile movement.",
+  },
+] as const;
+
 export default function ServicesPage() {
   useEffect(() => {
     document.title = "Services & Disciplines — Lee Wood Interior | Kannur";
@@ -219,7 +242,44 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 4. Editorial Call to Action */}
+      {/* 4. Quality Materials & Architectural Supplies */}
+      <section className="border-t border-border bg-card py-20 lg:py-28">
+        <div className="site-container">
+          <div className="max-w-2xl">
+            <SectionLabel>04 / Material supply</SectionLabel>
+            <h2 className="section-title mt-6">
+              Multiwood • Mica • Louvers • <span className="text-bronze">Hardware.</span>
+            </h2>
+            <p className="body-copy mt-4 text-foreground/75">
+              Quality materials for modern & durable spaces. We supply and integrate tested,
+              weather-resistant core boards, architectural surface laminates, fluted panels, and
+              precision hardware designed for coastal durability.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {materialSupplies.map((mat, i) => (
+              <ScrollReveal
+                key={mat.title}
+                className="flex flex-col justify-between border border-border bg-secondary/30 p-6 sm:p-8"
+              >
+                <div>
+                  <span className="font-mono text-xs font-semibold text-bronze">M-0{i + 1}</span>
+                  <h3 className="mt-4 font-display text-2xl font-normal text-foreground">
+                    {mat.title}
+                  </h3>
+                  <span className="mt-1 block text-xs font-semibold uppercase tracking-wider text-stone">
+                    {mat.category}
+                  </span>
+                  <p className="mt-4 text-xs leading-relaxed text-foreground/75">{mat.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Editorial Call to Action */}
       <EditorialCta
         title={
           <>

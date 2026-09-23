@@ -7,6 +7,7 @@ export const projectTypes = [
   "Living & TV unit",
   "Office interior",
   "Custom furniture",
+  "Materials & Supply (Multiwood, Mica, Louvers, Hardware)",
   "Other",
 ] as const;
 

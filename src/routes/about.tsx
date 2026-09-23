@@ -32,7 +32,7 @@ const principles = [
     title: "Material",
     subtitle: "Honesty & Tactile Warmth",
     description:
-      "Natural grain, honed granite, breathable lime plasters, and patinated bronze hardware. Materials chosen to age gracefully under tropical light and monsoon humidity.",
+      "Solid teak, waterproof Multiwood cores, architectural Mica laminates, linear louvers, and German precision hardware. Quality materials chosen for modern, durable tropical spaces.",
   },
 ] as const;
 
@@ -129,16 +129,16 @@ export default function AboutPage() {
               <span className="text-bronze">Kannur.</span>
             </h2>
             <p className="mt-6 text-[15px] leading-relaxed text-ivory/80">
-              Operating from Pilathara, Cheruthazham, Lee Wood Interior specializes in responsive
+              Operating from Thaza Kayaload, Kannur, Lee Wood Interior specializes in responsive
               architecture calibrated for Malabar’s coastal microclimate. We engineer bespoke
               joinery to withstand high seasonal humidity, prioritize natural cross-ventilation, and
-              source sustainable solid timbers.
+              source sustainable solid timbers and premium interior materials.
             </p>
             <div className="mt-8 flex flex-col gap-4 border-t border-white/14 pt-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-start gap-3">
                 <MapPin className="mt-1 shrink-0 text-bronze" size={16} />
                 <address className="not-italic text-sm leading-relaxed text-ivory/85">
-                  Pialathara, Cheruthazham
+                  Thaza Kayaload
                   <br />
                   Kannur District, Kerala 670741
                 </address>
