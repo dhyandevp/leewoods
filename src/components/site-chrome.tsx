@@ -32,7 +32,6 @@ export const studioEmail = "studio@leewoodinterior.com";
 
 export function Wordmark({
   light = false,
-  compact = false,
 }: {
   light?: boolean;
   compact?: boolean;
@@ -40,24 +39,18 @@ export function Wordmark({
   return (
     <Link
       to="/"
-      className={`inline-grid shrink-0 leading-none ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
+      className={`inline-flex shrink-0 items-center py-1 leading-none ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
       aria-label="Lee Wood Interior home"
     >
-      <span className="font-display text-base font-semibold uppercase sm:text-lg">
-        Lee Wood{compact ? " Interior" : ""}
+      <span className="font-display text-sm font-semibold tracking-[0.08em] uppercase sm:text-base">
+        Lee Wood Interior
       </span>
-      {!compact && (
-        <span
-          className={`mt-2 text-[9px] font-semibold uppercase ${light ? "text-surface-dark-foreground/70" : "text-foreground/52"}`}
-        >
-          Interior / Kannur
-        </span>
-      )}
     </Link>
   );
 }
 
 export function SiteHeader({ home = false, light = false }: { home?: boolean; light?: boolean }) {
+  void home;
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -108,16 +101,20 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
   return (
     <>
       <header
-        className={`site-header ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
+        className={`site-header sticky top-0 z-40 w-full backdrop-blur-md transition-colors duration-200 ${
+          light
+            ? "border-b border-white/10 bg-surface-dark/92 text-surface-dark-foreground"
+            : "border-b border-border/80 bg-background/92 text-foreground"
+        }`}
       >
-        <Wordmark light={light} compact={!home} />
+        <Wordmark light={light} />
         <nav className="flex items-center gap-6" aria-label="Main navigation">
           {/* Mobile: hamburger */}
           <button
             ref={triggerRef}
             type="button"
             onClick={() => setMenuOpen(true)}
-            className={`press-scale md:hidden ${light ? "text-surface-dark-foreground/80" : "text-foreground/62"}`}
+            className={`press-scale p-1 md:hidden ${light ? "text-surface-dark-foreground/80 hover:text-surface-dark-foreground" : "text-foreground/75 hover:text-foreground"}`}
             aria-label="Open menu"
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
@@ -125,18 +122,29 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
             <Menu size={22} />
           </button>
           {/* Desktop: inline links */}
-          <span className="hidden items-center gap-6 md:flex">
-            {mainNavigation.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className={`micro-link ${light ? "text-surface-dark-foreground/80 hover:text-primary-on-dark" : "text-foreground/62 hover:text-primary-readable"} ${location.pathname === item.to ? (light ? "!text-primary-on-dark" : "!text-primary-readable") : ""}`}
-                {...(location.pathname === item.to ? { "aria-current": "page" as const } : {})}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </span>
+          <div className="hidden items-center gap-7 md:flex">
+            {mainNavigation.map((item) => {
+              const active = location.pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`text-xs font-medium tracking-[0.08em] uppercase transition-colors duration-150 ${
+                    light
+                      ? active
+                        ? "text-bronze font-semibold"
+                        : "text-surface-dark-foreground/80 hover:text-bronze"
+                      : active
+                        ? "text-bronze font-semibold"
+                        : "text-foreground/75 hover:text-foreground"
+                  }`}
+                  {...(active ? { "aria-current": "page" as const } : {})}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
         </nav>
       </header>
 
@@ -150,19 +158,19 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
         className={`fixed inset-0 z-50 flex flex-col bg-surface-dark text-surface-dark-foreground transition-opacity duration-300 md:hidden ${menuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
         aria-hidden={!menuOpen}
       >
-        <div className="site-container flex min-h-[5.25rem] items-center justify-between sm:min-h-[6.5rem]">
+        <div className="site-container flex min-h-[4.75rem] items-center justify-between sm:min-h-[5.25rem]">
           <Wordmark light compact />
           <button
             type="button"
             onClick={closeMenu}
-            className="press-scale text-surface-dark-foreground/72"
+            className="press-scale p-1 text-surface-dark-foreground/80 hover:text-surface-dark-foreground"
             aria-label="Close menu"
           >
             <X size={22} />
           </button>
         </div>
         <nav
-          className="site-container flex flex-1 flex-col justify-center gap-8"
+          className="site-container flex flex-1 flex-col justify-center gap-7"
           aria-label="Mobile navigation"
         >
           {mainNavigation.map((item, i) => (
@@ -170,17 +178,20 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
               key={item.to}
               to={item.to}
               onClick={closeMenu}
-              className={`font-display text-4xl font-normal transition-colors hover:text-primary ${location.pathname === item.to ? "text-primary" : "text-surface-dark-foreground/90"}`}
+              className={`font-display text-3xl font-normal transition-colors hover:text-bronze ${location.pathname === item.to ? "text-bronze font-medium" : "text-surface-dark-foreground/90"}`}
               {...(location.pathname === item.to ? { "aria-current": "page" as const } : {})}
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-                transition: `opacity .4s cubic-bezier(.2,.8,.2,1) ${i * 60}ms, transform .4s cubic-bezier(.2,.8,.2,1) ${i * 60}ms`,
+                transition: `opacity .35s cubic-bezier(.2,.8,.2,1) ${i * 50}ms, transform .35s cubic-bezier(.2,.8,.2,1) ${i * 50}ms`,
               }}
             >
               {item.label}
             </Link>
           ))}
+          <div className="mt-8 border-t border-white/10 pt-6 text-xs tracking-wider text-surface-dark-foreground/60 uppercase">
+            Pialathara, Cheruthazham, Kannur, Kerala
+          </div>
         </nav>
       </div>
     </>
@@ -287,21 +298,32 @@ export function EditorialCta({
   description?: string;
 }) {
   return (
-    <section className="bg-secondary">
+    <section className="border-t border-border bg-secondary/60">
       <ScrollReveal className="site-container flex flex-col gap-10 py-20 sm:flex-row sm:items-end sm:justify-between lg:py-24">
-        <div>
+        <div className="max-w-2xl">
           <SectionLabel>Begin a conversation</SectionLabel>
-          <h2 className="section-title mt-7">{title}</h2>
-          <p className="body-copy mt-7">{description}</p>
+          <h2 className="section-title mt-6">{title}</h2>
+          <p className="body-copy mt-6 text-foreground/75">{description}</p>
         </div>
-        <Button
-          asChild
-          className="editorial-button shrink-0 bg-foreground text-background hover:bg-primary hover:text-primary-foreground"
-        >
-          <Link to="/contact">
-            Start an enquiry <ArrowRight size={16} />
-          </Link>
-        </Button>
+        <div className="flex shrink-0 flex-wrap items-center gap-4">
+          <Button
+            asChild
+            className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white"
+          >
+            <Link to="/contact">
+              Start an enquiry <ArrowRight size={15} />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="editorial-button border-forest/20 text-forest hover:border-forest hover:bg-forest/5"
+          >
+            <a href={mapUrl} target="_blank" rel="noreferrer">
+              Get directions
+            </a>
+          </Button>
+        </div>
       </ScrollReveal>
     </section>
   );
@@ -310,7 +332,7 @@ export function EditorialCta({
 export function SiteFooter({ dark = false }: { dark?: boolean }) {
   void dark;
   return (
-    <footer className="site-footer">
+    <footer className="site-footer bg-[#062018] text-[#F3F0E8]">
       <div className="site-container site-footer-container">
         <div className="site-footer-top">
           <span className="site-footer-brand">Lee Wood Interior © 2026</span>
@@ -324,10 +346,12 @@ export function SiteFooter({ dark = false }: { dark?: boolean }) {
           </nav>
         </div>
         <div className="site-footer-bottom">
-          <span className="site-footer-copyright">Kannur, Kerala</span>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <span className="site-footer-copyright">
+            Pialathara, Cheruthazham, Kannur, Kerala 670741
+          </span>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a href={phoneUrl} className="site-footer-utility" aria-label="Call studio">
-              <Phone size={12} strokeWidth={1.5} /> {studioPhone}
+              <Phone size={13} strokeWidth={1.75} /> {studioPhone}
             </a>
             <a
               href={whatsappUrl}
@@ -336,13 +360,13 @@ export function SiteFooter({ dark = false }: { dark?: boolean }) {
               className="site-footer-utility"
               aria-label="WhatsApp studio"
             >
-              <MessageCircle size={12} strokeWidth={1.5} /> WhatsApp
+              <MessageCircle size={13} strokeWidth={1.75} /> WhatsApp
             </a>
             <a href={mapUrl} target="_blank" rel="noreferrer" className="site-footer-utility">
-              <MapPin size={12} strokeWidth={1.5} /> Directions
+              <MapPin size={13} strokeWidth={1.75} /> Directions
             </a>
             <a href={instagramUrl} target="_blank" rel="noreferrer" className="site-footer-utility">
-              <Instagram size={12} strokeWidth={1.5} /> Instagram
+              <Instagram size={13} strokeWidth={1.75} /> Instagram
             </a>
           </div>
         </div>
