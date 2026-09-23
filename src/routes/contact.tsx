@@ -416,7 +416,7 @@ function Field({
     <div className="space-y-2">
       <Label
         htmlFor={id}
-        className="text-[11px] font-semibold uppercase tracking-[0.08em] text-foreground/70"
+        className="text-xs font-semibold uppercase tracking-[0.08em] text-foreground/70"
       >
         {label}
       </Label>

@@ -290,7 +290,7 @@ export default function HomePage() {
                     <p className="mt-3 text-xs leading-relaxed text-ivory/80">
                       {service.description}
                     </p>
-                    <div className="mt-4 border-t border-white/10 pt-3 text-[11px] uppercase tracking-wider text-bronze font-medium">
+                    <div className="mt-4 border-t border-white/10 pt-3 text-xs uppercase tracking-wider text-bronze font-medium">
                       {service.scope}
                     </div>
                   </div>

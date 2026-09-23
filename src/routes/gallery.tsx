@@ -206,7 +206,7 @@ export default function GalleryPage() {
                       {project.description}
                     </p>
                     <div className="text-left sm:text-right">
-                      <span className="text-[11px] font-semibold tracking-wider uppercase text-stone">
+                      <span className="text-xs font-semibold tracking-wider uppercase text-stone">
                         Materials
                       </span>
                       <p className="text-xs text-foreground/85">{project.materials}</p>
