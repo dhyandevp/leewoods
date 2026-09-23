@@ -219,7 +219,7 @@ export default function ServicesPage() {
             <div className="mt-8">
               <Button
                 asChild
-                className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white"
+                className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white dark:bg-bronze dark:text-white dark:hover:bg-bronze/90 transition-colors"
               >
                 <Link to="/contact">
                   Discuss your scope <ArrowRight size={14} />

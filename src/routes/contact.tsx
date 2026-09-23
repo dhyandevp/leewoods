@@ -224,7 +224,7 @@ export default function ContactPage() {
           <div className="border border-border bg-card p-6 sm:p-10 lg:col-span-7 xl:p-12">
             {sent ? (
               <div className="flex min-h-[34rem] flex-col items-start justify-center" role="status">
-                <span className="grid size-14 place-items-center bg-forest text-ivory">
+                <span className="grid size-14 place-items-center bg-forest text-ivory dark:bg-bronze dark:text-white">
                   <Check size={24} />
                 </span>
                 <h2 className="mt-8 font-display text-4xl font-normal text-foreground">
@@ -238,7 +238,7 @@ export default function ContactPage() {
                   type="button"
                   variant="outline"
                   onClick={() => setSent(false)}
-                  className="editorial-button mt-8 border-border bg-transparent text-foreground hover:border-forest hover:bg-forest/5"
+                  className="editorial-button mt-8 border-border bg-transparent text-foreground hover:border-bronze hover:text-bronze transition-colors"
                 >
                   Submit another brief
                 </Button>
@@ -376,7 +376,7 @@ export default function ContactPage() {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="editorial-button mt-8 bg-forest text-ivory hover:bg-bronze hover:text-white transition-colors"
+                  className="editorial-button mt-8 bg-forest text-ivory hover:bg-bronze hover:text-white dark:bg-bronze dark:text-white dark:hover:bg-bronze/90 transition-colors"
                 >
                   {submitting ? (
                     <>

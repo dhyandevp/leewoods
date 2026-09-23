@@ -24,6 +24,19 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap"
     />
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        var d = t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (d) {
+          document.documentElement.classList.add("dark");
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

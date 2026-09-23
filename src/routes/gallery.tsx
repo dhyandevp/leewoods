@@ -149,8 +149,8 @@ export default function GalleryPage() {
                 onClick={() => setActiveCategory(cat)}
                 className={`editorial-button h-10 px-5 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
                   activeCategory === cat
-                    ? "bg-forest text-ivory"
-                    : "border border-border bg-card text-foreground/70 hover:border-forest hover:text-foreground"
+                    ? "bg-forest text-ivory dark:bg-bronze dark:text-white"
+                    : "border border-border bg-card text-foreground/75 hover:border-bronze hover:text-bronze"
                 }`}
               >
                 {cat}

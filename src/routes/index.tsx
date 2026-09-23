@@ -96,7 +96,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button
                   asChild
-                  className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white transition-colors"
+                  className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white dark:bg-bronze dark:text-white dark:hover:bg-bronze/90 transition-colors"
                 >
                   <Link to="/gallery">
                     View projects <ArrowRight size={15} />
@@ -105,7 +105,7 @@ export default function HomePage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="editorial-button border-border bg-transparent text-foreground hover:border-forest hover:bg-forest/5"
+                  className="editorial-button border border-border bg-transparent text-foreground hover:border-bronze hover:text-bronze transition-colors"
                 >
                   <Link to="/about">Our studio</Link>
                 </Button>
@@ -389,7 +389,7 @@ export default function HomePage() {
               </div>
               <Button
                 asChild
-                className="editorial-button mt-4 w-full bg-forest text-ivory hover:bg-bronze hover:text-white"
+                className="editorial-button mt-4 w-full bg-forest text-ivory hover:bg-bronze hover:text-white dark:bg-bronze dark:text-white dark:hover:bg-bronze/90 transition-colors"
               >
                 <Link to="/gallery">
                   Explore project details <ArrowRight size={14} />

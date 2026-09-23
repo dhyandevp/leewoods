@@ -6,7 +6,9 @@ import {
   MapPin,
   Menu,
   MessageCircle,
+  Moon,
   Phone,
+  Sun,
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
@@ -41,6 +43,68 @@ export function Wordmark({ light = false }: { light?: boolean; compact?: boolean
         Lee Wood Interior
       </span>
     </Link>
+  );
+}
+
+export function ThemeToggle({ light = false }: { light?: boolean }) {
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    const root = document.documentElement;
+    if (next === "dark") {
+      root.classList.add("dark");
+      root.classList.remove("light");
+      root.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      root.classList.add("light");
+      root.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
+  useEffect(() => {
+    function onStorage(e: StorageEvent) {
+      if (e.key === "theme" && (e.newValue === "light" || e.newValue === "dark")) {
+        setTheme(e.newValue);
+        const root = document.documentElement;
+        if (e.newValue === "dark") {
+          root.classList.add("dark");
+          root.classList.remove("light");
+          root.setAttribute("data-theme", "dark");
+        } else {
+          root.classList.remove("dark");
+          root.classList.add("light");
+          root.setAttribute("data-theme", "light");
+        }
+      }
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className={`press-scale flex size-8 items-center justify-center border transition-colors ${
+        light
+          ? "border-white/20 text-surface-dark-foreground/80 hover:border-white/40 hover:text-white"
+          : "border-border text-foreground/80 hover:border-bronze hover:text-bronze"
+      }`}
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+    >
+      {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+    </button>
   );
 }
 
@@ -103,20 +167,23 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
         }`}
       >
         <Wordmark light={light} />
-        <nav className="flex items-center gap-6" aria-label="Main navigation">
-          {/* Mobile: hamburger */}
-          <button
-            ref={triggerRef}
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            className={`press-scale p-1 md:hidden ${light ? "text-surface-dark-foreground/80 hover:text-surface-dark-foreground" : "text-foreground/75 hover:text-foreground"}`}
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
-          >
-            <Menu size={22} />
-          </button>
-          {/* Desktop: inline links */}
+        <nav className="flex items-center gap-4 sm:gap-6" aria-label="Main navigation">
+          {/* Mobile: theme toggle & hamburger */}
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle light={light} />
+            <button
+              ref={triggerRef}
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className={`press-scale p-1 ${light ? "text-surface-dark-foreground/80 hover:text-surface-dark-foreground" : "text-foreground/75 hover:text-foreground"}`}
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+            >
+              <Menu size={22} />
+            </button>
+          </div>
+          {/* Desktop: inline links & theme toggle */}
           <div className="hidden items-center gap-7 md:flex">
             {mainNavigation.map((item) => {
               const active = location.pathname === item.to;
@@ -139,6 +206,7 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
                 </Link>
               );
             })}
+            <ThemeToggle light={light} />
           </div>
         </nav>
       </header>
@@ -155,14 +223,17 @@ export function SiteHeader({ home = false, light = false }: { home?: boolean; li
       >
         <div className="site-container flex min-h-[4.75rem] items-center justify-between sm:min-h-[5.25rem]">
           <Wordmark light compact />
-          <button
-            type="button"
-            onClick={closeMenu}
-            className="press-scale p-1 text-surface-dark-foreground/80 hover:text-surface-dark-foreground"
-            aria-label="Close menu"
-          >
-            <X size={22} />
-          </button>
+          <div className="flex items-center gap-3">
+            <ThemeToggle light />
+            <button
+              type="button"
+              onClick={closeMenu}
+              className="press-scale p-1 text-surface-dark-foreground/80 hover:text-surface-dark-foreground"
+              aria-label="Close menu"
+            >
+              <X size={22} />
+            </button>
+          </div>
         </div>
         <nav
           className="site-container flex flex-1 flex-col justify-center gap-7"
@@ -303,7 +374,7 @@ export function EditorialCta({
         <div className="flex shrink-0 flex-wrap items-center gap-4">
           <Button
             asChild
-            className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white"
+            className="editorial-button bg-forest text-ivory hover:bg-bronze hover:text-white dark:bg-bronze dark:text-white dark:hover:bg-bronze/90 transition-colors"
           >
             <Link to="/contact">
               Start an enquiry <ArrowRight size={15} />
@@ -312,10 +383,10 @@ export function EditorialCta({
           <Button
             asChild
             variant="outline"
-            className="editorial-button border-forest/20 text-forest hover:border-forest hover:bg-forest/5"
+            className="editorial-button border border-border bg-transparent text-foreground hover:border-bronze hover:text-bronze transition-colors"
           >
             <a href={mapUrl} target="_blank" rel="noreferrer">
-              Get directions
+              <MapPin size={14} className="shrink-0 text-bronze" /> Get directions
             </a>
           </Button>
         </div>
