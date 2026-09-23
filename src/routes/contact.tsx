@@ -2,6 +2,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
+  Clock,
   Instagram,
   Loader2,
   Mail,
@@ -9,7 +10,7 @@ import {
   MessageCircle,
   Phone,
 } from "lucide-react";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode, useEffect } from "react";
 import {
   PageIntro,
   SectionLabel,
@@ -37,7 +38,7 @@ import contactImage from "@/assets/lee-wood-cta.jpg";
 import { enquirySchema, budgetRanges, projectTypes, type EnquiryInput } from "@/lib/enquiry-schema";
 
 const fieldClass =
-  "h-[52px] rounded-none border-foreground/20 bg-transparent px-3.5 text-[15px] text-foreground shadow-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-0";
+  "h-[52px] rounded-none border-border bg-card px-3.5 text-[15px] text-foreground shadow-none placeholder:text-muted-foreground focus-visible:border-forest focus-visible:ring-0";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -46,6 +47,10 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof EnquiryInput, string>>>({});
   const [projectType, setProjectType] = useState("");
   const [budget, setBudget] = useState("");
+
+  useEffect(() => {
+    document.title = "Project Enquiries & Studio — Lee Wood Interior | Kannur";
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -92,7 +97,7 @@ export default function ContactPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           access_key: accessKey,
-          subject: `New enquiry from ${result.data.name}`,
+          subject: `New architectural enquiry from ${result.data.name}`,
           from_name: "Lee Wood Interior Website",
           ...result.data,
         }),
@@ -113,125 +118,137 @@ export default function ContactPage() {
 
   return (
     <main className="bg-background text-foreground">
+      {/* 1. Page Intro Hero */}
       <PageIntro
-        eyebrow="Project enquiries / Kannur"
+        eyebrow="01 / Project enquiries"
         title={
           <>
-            Let's
+            Let's shape
             <br />
-            shape your
+            your
           </>
         }
-        accent={<em className="font-normal">space.</em>}
-        description="Share the essentials of your project. Lee Wood Interior can then begin a focused conversation around your space, needs, materials, and scope."
+        accent={<span className="font-normal text-bronze">space.</span>}
+        description="Share the essentials of your project. We will schedule a focused consultation to discuss your room layout, materials, joinery scope, and budget."
       />
-      <section className="pb-20 lg:pb-24">
-        <div className="site-container grid items-start gap-14 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5">
-            <img
-              src={contactImage}
-              alt="Tropical residence illuminated at dusk"
-              loading="lazy"
-              className="aspect-[4/5] w-full object-cover object-center"
-            />
-            <div className="grid gap-8 border border-t-0 border-border p-6 sm:grid-cols-2 sm:p-7">
-              <div>
-                <p className="micro-copy text-primary-readable">Studio address</p>
-                <address className="mt-4 text-[15px] not-italic leading-7 text-foreground/68">
-                  Lee Wood Interior
-                  <br />
-                  Pilathara, Cheruthazham
-                  <br />
-                  Kannur District, Kerala 670741
-                  <br />
-                  India
-                </address>
+
+      <section className="pb-24 lg:pb-32">
+        <div className="site-container grid items-start gap-14 lg:grid-cols-12 lg:gap-12">
+          {/* Left Column: Studio Address & Direct Channels */}
+          <div className="space-y-8 lg:col-span-5">
+            <div className="image-reveal relative aspect-[16/10] overflow-hidden border border-border bg-secondary">
+              <img
+                src={contactImage}
+                alt="Lee Wood Interior residential project at twilight"
+                loading="lazy"
+                className="size-full object-cover object-center"
+              />
+            </div>
+
+            <div className="border border-border bg-card p-6 sm:p-8">
+              <SectionLabel>Studio address</SectionLabel>
+              <address className="mt-4 text-sm not-italic leading-relaxed text-foreground/80">
+                <span className="font-semibold text-foreground">Lee Wood Interior</span>
+                <br />
+                Pialathara, Cheruthazham
+                <br />
+                Kannur District, Kerala 670741
+                <br />
+                India
+              </address>
+
+              <div className="mt-6 flex items-center gap-2 border-t border-border pt-4 text-xs text-foreground/70">
+                <Clock size={14} className="shrink-0 text-bronze" />
+                <span>Monday – Saturday: 9:00 AM – 7:00 PM (By appointment)</span>
               </div>
-              <div className="flex flex-col items-start justify-end gap-3 text-[10px] font-semibold uppercase">
+
+              <div className="mt-6 flex flex-col gap-3 border-t border-border pt-6">
                 <a
                   href={phoneUrl}
-                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-foreground hover:text-bronze"
                 >
-                  <Phone size={14} />
+                  <Phone size={14} className="text-bronze" />
                   {studioPhone}
                 </a>
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-foreground hover:text-bronze"
                 >
-                  <MessageCircle size={14} />
-                  WhatsApp
+                  <MessageCircle size={14} className="text-bronze" />
+                  WhatsApp Consultation
                   <ArrowUpRight
                     size={12}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </a>
                 <a
                   href={emailUrl}
-                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-foreground hover:text-bronze"
                 >
-                  <Mail size={14} />
+                  <Mail size={14} className="text-bronze" />
                   {studioEmail}
                 </a>
                 <a
                   href={mapUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-foreground hover:text-bronze"
                 >
-                  <MapPin size={14} />
-                  Get directions
+                  <MapPin size={14} className="text-bronze" />
+                  Get Studio Directions
                   <ArrowUpRight
                     size={12}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </a>
                 <a
                   href={instagramUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-foreground hover:text-bronze"
                 >
-                  <Instagram size={14} />
-                  Instagram
+                  <Instagram size={14} className="text-bronze" />
+                  Instagram Portfolio
                   <ArrowUpRight
                     size={12}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="border border-foreground/20 bg-background p-6 sm:p-10 lg:col-span-7 xl:p-12">
+          {/* Right Column: Architectural Project Brief Form */}
+          <div className="border border-border bg-card p-6 sm:p-10 lg:col-span-7 xl:p-12">
             {sent ? (
               <div className="flex min-h-[34rem] flex-col items-start justify-center" role="status">
-                <span className="grid size-14 place-items-center bg-primary text-primary-foreground">
-                  <Check />
+                <span className="grid size-14 place-items-center bg-forest text-ivory">
+                  <Check size={24} />
                 </span>
-                <h2 className="mt-8 font-display text-4xl font-medium sm:text-5xl">
-                  Enquiry received
+                <h2 className="mt-8 font-display text-4xl font-normal text-foreground">
+                  Enquiry <span className="text-bronze">received.</span>
                 </h2>
-                <p className="body-copy mt-5">
-                  Thank you. Your project details have been sent to Lee Wood Interior.
+                <p className="body-copy mt-4 text-foreground/75">
+                  Thank you. Your project brief has been sent to our studio team. We will review
+                  your requirements and get in touch within one business day.
                 </p>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setSent(false)}
-                  className="mt-8 h-12 rounded-none border-border bg-transparent px-6 text-[10px] font-semibold uppercase hover:bg-foreground hover:text-background"
+                  className="editorial-button mt-8 border-border bg-transparent text-foreground hover:border-forest hover:bg-forest/5"
                 >
-                  Send another enquiry
+                  Submit another brief
                 </Button>
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate>
-                <div className="mb-10 border-b border-foreground/15 pb-7">
+                <div className="mb-10 border-b border-border pb-6">
                   <SectionLabel>Project brief</SectionLabel>
-                  <h2 className="mt-5 font-display text-4xl font-medium leading-tight sm:text-[46px]">
-                    Tell us what you need
+                  <h2 className="mt-3 font-display text-3xl font-medium text-foreground sm:text-4xl">
+                    Tell us what you <span className="text-bronze">need.</span>
                   </h2>
                 </div>
                 <input
@@ -241,7 +258,7 @@ export default function ContactPage() {
                   autoComplete="new-password"
                   aria-hidden="true"
                 />
-                <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+                <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
                   <Field id="contact-name" label="Your name" error={errors.name}>
                     <Input
                       id="contact-name"
@@ -274,7 +291,7 @@ export default function ContactPage() {
                       type="tel"
                       autoComplete="tel"
                       maxLength={30}
-                      placeholder="+91"
+                      placeholder="+91 94470 00000"
                       aria-invalid={!!errors.phone}
                       aria-describedby={errors.phone ? "contact-phone-error" : undefined}
                       className={fieldClass}
@@ -289,7 +306,7 @@ export default function ContactPage() {
                       id="contact-location"
                       name="projectLocation"
                       maxLength={150}
-                      placeholder="Town or district"
+                      placeholder="Town / City (e.g. Kannur, Thalassery)"
                       aria-invalid={!!errors.projectLocation}
                       aria-describedby={
                         errors.projectLocation ? "contact-location-error" : undefined
@@ -307,7 +324,7 @@ export default function ContactPage() {
                           errors.projectType ? "contact-project-type-error" : undefined
                         }
                       >
-                        <SelectValue placeholder="Select project" />
+                        <SelectValue placeholder="Select discipline" />
                       </SelectTrigger>
                       <SelectContent>
                         {projectTypes.map((item) => (
@@ -326,7 +343,7 @@ export default function ContactPage() {
                         aria-invalid={!!errors.budget}
                         aria-describedby={errors.budget ? "contact-budget-error" : undefined}
                       >
-                        <SelectValue placeholder="Select range" />
+                        <SelectValue placeholder="Select budget range" />
                       </SelectTrigger>
                       <SelectContent>
                         {budgetRanges.map((item) => (
@@ -343,10 +360,10 @@ export default function ContactPage() {
                         id="contact-message"
                         name="message"
                         maxLength={1500}
-                        placeholder="Rooms, requirements, timeline, and anything else we should know"
+                        placeholder="Rooms, architectural requirements, timeline, and any specific materials in mind..."
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "contact-message-error" : undefined}
-                        className="min-h-36 resize-y rounded-none border-foreground/20 bg-transparent px-3.5 py-3 text-[15px] leading-6 text-foreground shadow-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-0"
+                        className="min-h-36 resize-y rounded-none border-border bg-card px-3.5 py-3 text-[15px] leading-relaxed text-foreground shadow-none placeholder:text-muted-foreground focus-visible:border-forest focus-visible:ring-0"
                       />
                     </Field>
                   </div>
@@ -359,17 +376,16 @@ export default function ContactPage() {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="group mt-8 h-[50px] min-w-40 rounded-none bg-foreground px-6 text-[10px] font-semibold uppercase text-background transition-colors duration-300 hover:bg-foreground/90 press-scale"
+                  className="editorial-button mt-8 bg-forest text-ivory hover:bg-bronze hover:text-white transition-colors"
                 >
                   {submitting ? (
                     <>
-                      <Loader2 className="animate-spin" />
-                      Sending enquiry
+                      <Loader2 className="animate-spin" size={16} />
+                      Sending brief...
                     </>
                   ) : (
                     <>
-                      Send enquiry{" "}
-                      <ArrowRight className="ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                      Submit architectural brief <ArrowRight size={15} />
                     </>
                   )}
                 </Button>
@@ -378,7 +394,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <SiteFooter />
+
+      {/* Global High-Contrast Footer */}
+      <SiteFooter dark />
     </main>
   );
 }
@@ -398,7 +416,7 @@ function Field({
     <div className="space-y-2">
       <Label
         htmlFor={id}
-        className="text-[10px] font-semibold uppercase tracking-[0.06em] text-muted-foreground"
+        className="text-xs font-semibold uppercase tracking-[0.08em] text-foreground/70"
       >
         {label}
       </Label>
