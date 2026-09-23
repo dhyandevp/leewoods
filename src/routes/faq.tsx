@@ -5,51 +5,51 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { EditorialCta, PageIntro, SiteFooter } from "@/components/site-chrome";
+import { EditorialCta, PageIntro, SectionLabel, SiteFooter } from "@/components/site-chrome";
 
 const planning = [
   [
-    "Where is Lee Wood Interior based?",
-    "Lee Wood Interior is based in Pilathara, Cheruthazham, Kannur District, Kerala 670741.",
+    "Where is Lee Wood Interior located?",
+    "Our studio and joinery workshop are located in Pialathara, Cheruthazham, Kannur District, Kerala 670741. We actively undertake residential and commercial projects across Kannur, Payyanur, Thalassery, and surrounding districts.",
   ],
   [
-    "What interior services do you offer?",
-    "The studio works on modular kitchens, custom wardrobes, furniture, living and media spaces, complete home interiors, and office interior projects.",
+    "What interior disciplines do you execute?",
+    "We specialize in modular kitchen architecture, floor-to-ceiling bespoke wardrobes, living and acoustic media units, solid teak furniture, and complete turnkey residential fit-outs.",
   ],
   [
-    "Can an interior be designed around my exact space?",
-    "Yes. Planning, cabinetry, storage, materials, and finishes are shaped around the room and the way you use it.",
+    "Can an interior be designed around my exact architectural floor plan?",
+    "Yes. We collaborate from bare shell, structural drawings, or renovation stages. Every cabinet dimension, circulation passage, electrical datum, and lighting circuit is drawn precisely for your room.",
   ],
   [
-    "How does an interior project begin?",
-    "A project begins with a conversation about the space, practical needs, style, and scope. The next steps are confirmed directly for each project.",
+    "How does the design and execution process unfold?",
+    "We begin with a site visit or plan consultation to understand daily routines and spatial requirements. We then present spatial layouts, 3D visualizations, and tactile material palettes. Once approved, fabrication takes place in our workshop prior to on-site assembly.",
   ],
   [
-    "How can I request a quotation?",
-    "Use our project enquiry form to share your location, project type, budget range, and requirements. Lee Wood Interior can then follow up.",
+    "How do I request a tailored project quotation?",
+    "You can submit an enquiry via our Contact page detailing your project type, room requirements, site location, and anticipated timeline. We then schedule a focused consultation to provide an itemized estimate.",
   ],
 ] as const;
 
 const services = [
   [
-    "Do you create modular kitchens?",
-    "Yes. Modular kitchens are one of the studio's core services, alongside wardrobes, TV units, furniture works, and complete interiors.",
+    "What materials and hardware do you recommend for Kerala's coastal climate?",
+    "Due to Malabar's seasonal monsoon humidity, we use boiling-water-resistant (BWR/BWP) marine-grade plywood carcasses combined with solid Malabar teak and moisture-resistant laminates or veneers. All drawer runners and hinges are high-grade corrosion-resistant German hardware (Blum or Hettich).",
   ],
   [
-    "Do you take office interior projects?",
-    "Yes. Lee Wood Interior works across home and office interiors, with the exact scope confirmed directly for each project.",
+    "Do you handle office and commercial interior commissions?",
+    "Yes. In addition to private homes, we design executive suites, creative studios, and boutique retail spaces where quiet luxury, acoustic control, and functional storage are required.",
   ],
   [
-    "Can you make custom furniture?",
-    "Yes. Furniture and built-in pieces can be planned as part of the interior so their dimensions, materials, and function belong to the room.",
+    "Can you fabricate standalone custom teak furniture?",
+    "Yes. We design and craft bespoke solid teak dining tables, floating consoles, credenzas, and lounge benches designed to integrate seamlessly with the room's built-in architecture.",
   ],
   [
-    "Is pricing available online?",
-    "No fixed pricing is listed. A quotation depends on the site, design scope, materials, and required furniture or cabinetry.",
+    "How long does a typical interior project take to complete?",
+    "A targeted modular kitchen or wardrobe suite generally takes 3 to 5 weeks from technical sign-off to installation. Comprehensive turnkey residences typically span 8 to 14 weeks depending on site readiness and carpentry scope.",
   ],
   [
-    "Where can I see current work?",
-    "The portfolio presents a selection of completed spaces. You can also follow our recent updates on Instagram or visit our studio in Pilathara.",
+    "Can I visit your workshop or completed residences in Kannur?",
+    "Yes. We welcome clients to our Pilathara studio by appointment to review material samples, joinery mockups, and finish options. Site visits to completed projects can also be arranged with homeowner consent.",
   ],
 ] as const;
 
@@ -64,15 +64,15 @@ function QuestionGroup({
 }) {
   return (
     <section>
-      <p className="micro-copy text-primary-readable">{label}</p>
-      <h2 className="mt-5 font-display text-4xl font-medium sm:text-5xl">{title}</h2>
-      <Accordion type="single" collapsible className="mt-9 border-t border-border">
+      <SectionLabel>{label}</SectionLabel>
+      <h2 className="mt-4 font-display text-3xl font-medium text-foreground sm:text-4xl">{title}</h2>
+      <Accordion type="single" collapsible className="mt-8 border-t border-border">
         {questions.map(([q, a], i) => (
           <AccordionItem key={q} value={`${label}-${i}`} className="border-border">
-            <AccordionTrigger className="py-6 text-left font-display text-base font-medium tracking-normal hover:text-primary-readable hover:no-underline sm:text-lg">
+            <AccordionTrigger className="py-5 text-left font-display text-base font-normal tracking-normal text-foreground transition-colors hover:text-bronze hover:no-underline sm:text-lg">
               {q}
             </AccordionTrigger>
-            <AccordionContent className="max-w-xl pb-7 text-sm leading-7 text-foreground/70">
+            <AccordionContent className="pb-6 text-sm leading-relaxed text-foreground/75">
               {a}
             </AccordionContent>
           </AccordionItem>
@@ -84,11 +84,12 @@ function QuestionGroup({
 
 export default function FaqPage() {
   useEffect(() => {
-    document.title = "FAQ & Process — Lee Wood Interior";
+    document.title = "FAQ & Process — Lee Wood Interior | Kannur";
   }, []);
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
+      {/* 1. Page Intro Hero */}
       <PageIntro
         eyebrow="01 / Common questions"
         title={
@@ -98,30 +99,36 @@ export default function FaqPage() {
             asked questions
           </>
         }
-        accent={<em className="font-normal">Start here.</em>}
-        description="Clear answers about planning, services, scope, and beginning an interior project with Lee Wood Interior."
+        accent={<span className="font-normal text-bronze">Start here.</span>}
+        description="Clear answers regarding project planning, materials, joinery engineering, and commissioning an interior with Lee Wood Interior in Kannur."
       />
-      <section className="pb-24 lg:pb-28">
+
+      {/* 2. Accordion Groups */}
+      <section className="pb-24 lg:pb-32">
         <div className="site-container grid gap-16 lg:grid-cols-2 lg:gap-16">
           <div>
-            <QuestionGroup label="Planning" title="Your space" questions={planning} />
+            <QuestionGroup label="01 / Planning" title="Your space & scope" questions={planning} />
           </div>
           <div>
-            <QuestionGroup label="Services" title="Our craft" questions={services} />
+            <QuestionGroup label="02 / Craft & Materials" title="Execution & quality" questions={services} />
           </div>
         </div>
       </section>
+
+      {/* 3. Editorial Call to Action */}
       <EditorialCta
         title={
           <>
             Have another question
             <br />
-            about your space?
+            about your <span className="text-bronze">space?</span>
           </>
         }
         description="Speak with our team directly. We are happy to discuss layout options, materials, and project timelines."
       />
-      <SiteFooter />
+
+      {/* Global High-Contrast Footer */}
+      <SiteFooter dark />
     </main>
   );
 }
