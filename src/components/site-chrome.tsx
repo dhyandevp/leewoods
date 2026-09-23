@@ -14,6 +14,7 @@ import {
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import logoImg from "@/assets/logo.png";
 
 export const mainNavigation = [
   { label: "Projects", to: "/gallery" },
@@ -23,8 +24,7 @@ export const mainNavigation = [
   { label: "Contact", to: "/contact" },
 ] as const;
 
-export const mapUrl =
-  "https://maps.google.com/maps/place/lee+wood+interio/data=!4m2!3m1!1s0x3ba4259b1f68d5f1:0x99b811d342095886";
+export const mapUrl = "https://maps.app.goo.gl/ZpfA9otda8DkKyZM6";
 export const instagramUrl = "https://www.instagram.com/leewood.interio/";
 export const phoneUrl = "tel:+919447000000";
 export const whatsappUrl = "https://wa.me/919447000000";
@@ -36,9 +36,14 @@ export function Wordmark({ light = false }: { light?: boolean; compact?: boolean
   return (
     <Link
       to="/"
-      className={`inline-flex shrink-0 items-center py-1 leading-none ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
+      className={`inline-flex shrink-0 items-center gap-2.5 py-1 leading-none ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
       aria-label="Lee Wood Interior home"
     >
+      <img
+        src={logoImg}
+        alt="Lee Wood Interio Logo"
+        className="size-7 rounded object-contain sm:size-8"
+      />
       <span className="font-display text-sm font-semibold tracking-[0.08em] uppercase sm:text-base">
         Lee Wood Interior
       </span>
