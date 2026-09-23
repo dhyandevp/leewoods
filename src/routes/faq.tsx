@@ -10,7 +10,7 @@ import { EditorialCta, PageIntro, SectionLabel, SiteFooter } from "@/components/
 const planning = [
   [
     "Where is Lee Wood Interior located?",
-    "Our studio and joinery workshop are located in Pialathara, Cheruthazham, Kannur District, Kerala 670741. We actively undertake residential and commercial projects across Kannur, Payyanur, Thalassery, and surrounding districts.",
+    "Our studio and joinery workshop are located at Thaza Kayaload, Kannur District, Kerala 670741. We actively undertake residential and commercial projects across Kannur, Payyanur, Thalassery, and surrounding districts.",
   ],
   [
     "What interior disciplines do you execute?",
@@ -49,7 +49,7 @@ const services = [
   ],
   [
     "Can I visit your workshop or completed residences in Kannur?",
-    "Yes. We welcome clients to our Pilathara studio by appointment to review material samples, joinery mockups, and finish options. Site visits to completed projects can also be arranged with homeowner consent.",
+    "Yes. We welcome clients to our studio at Thaza Kayaload by appointment to review material samples, joinery mockups, and finish options. Site visits to completed projects can also be arranged with homeowner consent.",
   ],
 ] as const;
 

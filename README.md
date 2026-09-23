@@ -2,7 +2,7 @@
 
 > Interior Architecture & Bespoke Joinery Studio — Kannur, Kerala.
 
-Lee Wood Interior is an architectural interior practice based in Pilathara, Cheruthazham, Kannur. The studio crafts calm, tactile residential and commercial environments where built-in joinery, natural timber, circulation, and light function as one considered architectural whole.
+Lee Wood Interior is an architectural interior practice based in Thaza Kayaload, Kannur. The studio crafts calm, tactile residential and commercial environments where built-in joinery, natural timber, circulation, and light function as one considered architectural whole.
 
 ---
 
@@ -23,10 +23,10 @@ Lee Wood Interior is an architectural interior practice based in Pilathara, Cher
 
 - `/` — **Home**: Asymmetric editorial hero, 3-part philosophy manifesto, dark forest services panels, featured project spotlight, and editorial CTA.
 - `/about` — **Studio**: Practice narrative, architectural principles (Purpose, Proportion, Material), and local climate-responsive practice in Kannur.
-- `/services` — **Services & Scope**: 4 alternating editorial modules (Modular Kitchens, Bespoke Wardrobes, Living & Media, Turnkey Residences) with technical highlights and a 6-part scope matrix.
+- `/services` — **Services & Scope**: 4 alternating editorial modules (Modular Kitchens, Bespoke Wardrobes, Living & Media, Turnkey Residences), a 6-part scope matrix, and dedicated supply pillars for **Multiwood**, **Mica**, **Louvers**, and **Hardware**.
 - `/gallery` — **Selected Projects**: Asymmetric curated project gallery with category filtering and unique architectural photography assets.
 - `/faq` — **FAQ & Process**: Wide thin-divider accordions detailing project scope, planning, materials, and regional execution.
-- `/contact` — **Project Enquiries**: Studio address in Pilathara, Cheruthazham, direct communication channels (Phone, WhatsApp, Directions, Instagram), and an itemized architectural project brief submission form.
+- `/contact` — **Project Enquiries**: Studio address in Thaza Kayaload, Kannur, direct communication channels (Phone, WhatsApp, Directions, Instagram), and an itemized architectural project brief submission form.
 
 ---
 
@@ -82,7 +82,7 @@ npm run format
 ## Studio Location
 
 **Lee Wood Interior**  
-Pilathara, Cheruthazham  
+Thaza Kayaload  
 Kannur District, Kerala 670741  
 India
 
