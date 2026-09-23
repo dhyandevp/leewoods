@@ -1,6 +1,15 @@
-import { Link } from "react-router";
-import { ArrowLeft, ArrowRight, Instagram, MapPin } from "lucide-react";
-import type { ReactNode } from "react";
+import { Link, useLocation } from "react-router";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Instagram,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Phone,
+  X,
+} from "lucide-react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/scroll-reveal";
 
@@ -15,6 +24,11 @@ export const mainNavigation = [
 export const mapUrl =
   "https://maps.google.com/maps/place/lee+wood+interio/data=!4m2!3m1!1s0x3ba4259b1f68d5f1:0x99b811d342095886";
 export const instagramUrl = "https://www.instagram.com/leewood.interio/";
+export const phoneUrl = "tel:+919447000000";
+export const whatsappUrl = "https://wa.me/919447000000";
+export const emailUrl = "mailto:studio@leewoodinterior.com";
+export const studioPhone = "+91 94470 00000";
+export const studioEmail = "studio@leewoodinterior.com";
 
 export function Wordmark({
   light = false,
@@ -26,7 +40,7 @@ export function Wordmark({
   return (
     <Link
       to="/"
-      className={`inline-grid shrink-0 leading-none ${light ? "text-background" : "text-foreground"}`}
+      className={`inline-grid shrink-0 leading-none ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
       aria-label="Lee Wood Interior home"
     >
       <span className="font-display text-base font-semibold uppercase sm:text-lg">
@@ -34,7 +48,7 @@ export function Wordmark({
       </span>
       {!compact && (
         <span
-          className={`mt-2 text-[9px] font-semibold uppercase ${light ? "text-background/62" : "text-foreground/52"}`}
+          className={`mt-2 text-[9px] font-semibold uppercase ${light ? "text-surface-dark-foreground/70" : "text-foreground/52"}`}
         >
           Interior / Kannur
         </span>
@@ -44,41 +58,132 @@ export function Wordmark({
 }
 
 export function SiteHeader({ home = false, light = false }: { home?: boolean; light?: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    document.body.style.overflow = "hidden";
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        triggerRef.current?.focus();
+      }
+      // Focus trap
+      if (e.key === "Tab" && menuRef.current) {
+        const focusable = menuRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0]!;
+        const last = focusable[focusable.length - 1]!;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    // Focus first focusable element in menu
+    requestAnimationFrame(() => {
+      const close = menuRef.current?.querySelector<HTMLElement>("button");
+      close?.focus();
+    });
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
+
   return (
-    <header className={`site-header ${light ? "text-background" : "text-foreground"}`}>
-      <Wordmark light={light} compact={!home} />
-      {home ? (
+    <>
+      <header
+        className={`site-header ${light ? "text-surface-dark-foreground" : "text-foreground"}`}
+      >
+        <Wordmark light={light} compact={!home} />
         <nav className="flex items-center gap-6" aria-label="Main navigation">
-          <Link
-            to="/gallery"
-            className={`micro-link md:hidden ${light ? "text-background/72 hover:text-primary" : "text-foreground/62 hover:text-primary-readable"}`}
+          {/* Mobile: hamburger */}
+          <button
+            ref={triggerRef}
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            className={`press-scale md:hidden ${light ? "text-surface-dark-foreground/80" : "text-foreground/62"}`}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
           >
-            Projects
-          </Link>
+            <Menu size={22} />
+          </button>
+          {/* Desktop: inline links */}
           <span className="hidden items-center gap-6 md:flex">
             {mainNavigation.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                className={`micro-link ${light ? "text-background/72 hover:text-primary" : "text-foreground/62 hover:text-primary-readable"}`}
+                className={`micro-link ${light ? "text-surface-dark-foreground/80 hover:text-primary-on-dark" : "text-foreground/62 hover:text-primary-readable"} ${location.pathname === item.to ? (light ? "!text-primary-on-dark" : "!text-primary-readable") : ""}`}
+                {...(location.pathname === item.to ? { "aria-current": "page" as const } : {})}
               >
                 {item.label}
               </Link>
             ))}
           </span>
         </nav>
-      ) : (
-        <Button
-          asChild
-          variant="ghost"
-          className={`h-11 rounded-none px-0 text-[10px] font-semibold uppercase ${light ? "text-background/72 hover:bg-transparent hover:text-primary" : "text-foreground/62 hover:bg-transparent hover:text-primary-readable"}`}
+      </header>
+
+      {/* Mobile menu overlay */}
+      <div
+        ref={menuRef}
+        id="mobile-navigation"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
+        className={`fixed inset-0 z-50 flex flex-col bg-surface-dark text-surface-dark-foreground transition-opacity duration-300 md:hidden ${menuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="site-container flex min-h-[5.25rem] items-center justify-between sm:min-h-[6.5rem]">
+          <Wordmark light compact />
+          <button
+            type="button"
+            onClick={closeMenu}
+            className="press-scale text-surface-dark-foreground/72"
+            aria-label="Close menu"
+          >
+            <X size={22} />
+          </button>
+        </div>
+        <nav
+          className="site-container flex flex-1 flex-col justify-center gap-8"
+          aria-label="Mobile navigation"
         >
-          <Link to="/">
-            <ArrowLeft size={15} /> Back to studio
-          </Link>
-        </Button>
-      )}
-    </header>
+          {mainNavigation.map((item, i) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              onClick={closeMenu}
+              className={`font-display text-4xl font-normal transition-colors hover:text-primary ${location.pathname === item.to ? "text-primary" : "text-surface-dark-foreground/90"}`}
+              {...(location.pathname === item.to ? { "aria-current": "page" as const } : {})}
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(16px)",
+                transition: `opacity .4s cubic-bezier(.2,.8,.2,1) ${i * 60}ms, transform .4s cubic-bezier(.2,.8,.2,1) ${i * 60}ms`,
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </>
   );
 }
 
@@ -90,7 +195,7 @@ export function SectionLabel({
   light?: boolean;
 }) {
   return (
-    <p className={`section-label ${light ? "text-primary" : "text-primary-readable"}`}>
+    <p className={`section-label ${light ? "text-primary-on-dark" : "text-primary-readable"}`}>
       <span aria-hidden="true" />
       {children}
     </p>
@@ -115,7 +220,11 @@ export function PageIntro({
   dark?: boolean;
 }) {
   return (
-    <section className={dark ? "bg-foreground text-background" : "bg-background text-foreground"}>
+    <section
+      className={
+        dark ? "bg-surface-dark text-surface-dark-foreground" : "bg-background text-foreground"
+      }
+    >
       <div className="site-container">
         <SiteHeader light={dark} />
         <div className={`page-intro ${image ? "page-intro-with-image" : ""}`}>
@@ -130,11 +239,15 @@ export function PageIntro({
               <SectionLabel light={dark}>{eyebrow}</SectionLabel>
               <h1 className="editorial-title mt-9">
                 {title}
-                {accent && <span className="block text-primary">{accent}</span>}
+                {accent && (
+                  <span className={`block ${dark ? "text-primary-on-dark" : "text-primary"}`}>
+                    {accent}
+                  </span>
+                )}
               </h1>
             </div>
             <p
-              className={`${image ? "mt-12" : "lg:col-span-4"} max-w-lg border-l border-primary pl-6 text-[15px] leading-7 sm:text-base ${dark ? "text-background/72" : "text-foreground/68"}`}
+              className={`${image ? "mt-12" : "lg:col-span-4"} max-w-lg border-l border-primary pl-6 text-[15px] leading-7 sm:text-base ${dark ? "text-surface-dark-foreground/78" : "text-foreground/68"}`}
             >
               {description}
             </p>
@@ -146,7 +259,10 @@ export function PageIntro({
                 alt={imageAlt ?? "Lee Wood Interior project"}
                 className="absolute inset-0 size-full object-cover"
               />
-              <span className="absolute bottom-6 right-6 border-r border-primary pr-4 font-display text-3xl text-background">
+              <span
+                aria-hidden="true"
+                className="absolute bottom-6 right-6 border-r border-primary pr-4 font-display text-3xl text-surface-dark-foreground"
+              >
                 01
               </span>
             </ScrollReveal>
@@ -200,34 +316,35 @@ export function SiteFooter({ dark = false }: { dark?: boolean }) {
           <span className="site-footer-brand">Lee Wood Interior © 2026</span>
           <span className="site-footer-location">Kannur / Kerala</span>
           <nav className="site-footer-navigation" aria-label="Footer navigation">
-            {mainNavigation.slice(0, 3).map((item) => (
+            {mainNavigation.map((item) => (
               <Link key={item.to} to={item.to} className="site-footer-link">
                 {item.label}
               </Link>
             ))}
-            <Link to="/contact" className="site-footer-link">
-              Contact
-            </Link>
           </nav>
         </div>
         <div className="site-footer-bottom">
-          <span className="site-footer-copyright">© Copyright</span>
-          <a
-            href={mapUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="site-footer-utility site-footer-directions"
-          >
-            <MapPin size={12} strokeWidth={1.5} /> Directions
-          </a>
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="site-footer-utility site-footer-instagram"
-          >
-            <Instagram size={12} strokeWidth={1.5} /> Instagram
-          </a>
+          <span className="site-footer-copyright">Kannur, Kerala</span>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href={phoneUrl} className="site-footer-utility" aria-label="Call studio">
+              <Phone size={12} strokeWidth={1.5} /> {studioPhone}
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="site-footer-utility"
+              aria-label="WhatsApp studio"
+            >
+              <MessageCircle size={12} strokeWidth={1.5} /> WhatsApp
+            </a>
+            <a href={mapUrl} target="_blank" rel="noreferrer" className="site-footer-utility">
+              <MapPin size={12} strokeWidth={1.5} /> Directions
+            </a>
+            <a href={instagramUrl} target="_blank" rel="noreferrer" className="site-footer-utility">
+              <Instagram size={12} strokeWidth={1.5} /> Instagram
+            </a>
+          </div>
         </div>
       </div>
     </footer>

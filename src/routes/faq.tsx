@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PageIntro, SiteFooter } from "@/components/site-chrome";
+import { EditorialCta, PageIntro, SiteFooter } from "@/components/site-chrome";
 
 const planning = [
   [
@@ -25,7 +26,7 @@ const planning = [
   ],
   [
     "How can I request a quotation?",
-    "Use the project enquiry form to share your location, project type, budget range, and requirements. Lee Wood Interior can then follow up.",
+    "Use our project enquiry form to share your location, project type, budget range, and requirements. Lee Wood Interior can then follow up.",
   ],
 ] as const;
 
@@ -48,7 +49,7 @@ const services = [
   ],
   [
     "Where can I see current work?",
-    "The portfolio presents a selection of spaces. The verified Lee Wood Interior Instagram profile is the best available channel for current updates.",
+    "The portfolio presents a selection of completed spaces. You can also follow our recent updates on Instagram or visit our studio in Pilathara.",
   ],
 ] as const;
 
@@ -71,7 +72,7 @@ function QuestionGroup({
             <AccordionTrigger className="py-6 text-left font-display text-base font-medium tracking-normal hover:text-primary-readable hover:no-underline sm:text-lg">
               {q}
             </AccordionTrigger>
-            <AccordionContent className="max-w-xl pb-7 text-sm leading-7 text-foreground/62">
+            <AccordionContent className="max-w-xl pb-7 text-sm leading-7 text-foreground/70">
               {a}
             </AccordionContent>
           </AccordionItem>
@@ -82,10 +83,14 @@ function QuestionGroup({
 }
 
 export default function FaqPage() {
+  useEffect(() => {
+    document.title = "FAQ & Process — Lee Wood Interior";
+  }, []);
+
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <PageIntro
-        eyebrow="Questions / Process / Scope"
+        eyebrow="01 / Common questions"
         title={
           <>
             Frequently
@@ -93,19 +98,29 @@ export default function FaqPage() {
             asked questions
           </>
         }
-        accent={<>Start here</>}
+        accent={<em className="font-normal">Start here.</em>}
         description="Clear answers about planning, services, scope, and beginning an interior project with Lee Wood Interior."
       />
       <section className="pb-24 lg:pb-28">
-        <div className="site-container grid gap-20 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-5">
+        <div className="site-container grid gap-16 lg:grid-cols-2 lg:gap-16">
+          <div>
             <QuestionGroup label="Planning" title="Your space" questions={planning} />
           </div>
-          <div className="lg:col-span-5 lg:col-start-8">
+          <div>
             <QuestionGroup label="Services" title="Our craft" questions={services} />
           </div>
         </div>
       </section>
+      <EditorialCta
+        title={
+          <>
+            Have another question
+            <br />
+            about your space?
+          </>
+        }
+        description="Speak with our team directly. We are happy to discuss layout options, materials, and project timelines."
+      />
       <SiteFooter />
     </main>
   );

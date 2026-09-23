@@ -17,3 +17,5 @@ dist
 *.sw?
 .env
 tsconfig.tsbuildinfo
+.playwright-mcp/
+skills-lock.json

@@ -25,13 +25,17 @@ export const enquirySchema = z.object({
     .string()
     .trim()
     .regex(/^[+\d][\d\s()-]{6,29}$/, "Enter a valid phone number"),
-  projectType: z.enum(projectTypes, { required_error: "Select a project type" }),
+  projectType: z.enum(projectTypes, {
+    errorMap: () => ({ message: "Please select a project type" }),
+  }),
   projectLocation: z
     .string()
     .trim()
     .min(2, "Enter the project location")
     .max(150, "Location is too long"),
-  budget: z.enum(budgetRanges, { required_error: "Select a budget range" }),
+  budget: z.enum(budgetRanges, {
+    errorMap: () => ({ message: "Please select an estimated budget range" }),
+  }),
   message: z
     .string()
     .trim()

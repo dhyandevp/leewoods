@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { EditorialCta, PageIntro, SectionLabel, SiteFooter } from "@/components/site-chrome";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import kitchenImage from "@/assets/lee-wood-kitchen.jpg";
@@ -11,24 +12,28 @@ const services = [
     "Modular kitchens",
     kitchenImage,
     "Purpose-built kitchens balancing movement, storage, and material warmth.",
+    "Bespoke modular kitchen with warm timber cabinetry and integrated storage",
   ],
   [
     "02",
     "Bespoke wardrobes",
     wardrobeImage,
     "Custom storage designed around the architecture and your everyday rhythm.",
+    "Custom built-in wardrobe with precision joinery",
   ],
   [
     "03",
     "Living & media",
     livingImage,
     "TV units, fitted elements, and living spaces composed for comfort and connection.",
+    "Calm living room with integrated TV unit and balanced lighting",
   ],
   [
     "04",
     "Complete interiors",
     heroImage,
     "A joined-up approach to home and office interiors, furniture, finishes, and planning.",
+    "Comprehensive residential interior architecture in Kannur",
   ],
 ] as const;
 
@@ -42,13 +47,17 @@ const scope = [
 ];
 
 export default function ServicesPage() {
+  useEffect(() => {
+    document.title = "Services & Scope — Lee Wood Interior";
+  }, []);
+
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <PageIntro
         dark
-        eyebrow="Interior disciplines"
+        eyebrow="01 / Disciplines & Scope"
         title={<>What we</>}
-        accent={<>shape.</>}
+        accent={<em className="font-normal">shape.</em>}
         description="From focused cabinetry to complete spaces, each service brings planning, materials, furniture, and practical use into one coherent interior."
         image={kitchenImage}
         imageAlt="Modular kitchen by Lee Wood Interior"
@@ -58,7 +67,7 @@ export default function ServicesPage() {
         <div className="site-container">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <SectionLabel>01 / Services</SectionLabel>
+              <SectionLabel>02 / Disciplines</SectionLabel>
               <h2 className="section-title mt-8">Designed as a whole.</h2>
             </div>
             <p className="body-copy lg:col-span-4 lg:col-start-9">
@@ -67,16 +76,17 @@ export default function ServicesPage() {
             </p>
           </div>
           <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2">
-            {services.map(([number, title, image, copy]) => (
+            {services.map(([number, title, image, copy, altText]) => (
               <ScrollReveal key={title}>
                 <article>
                   <div className="image-reveal relative aspect-[5/4] overflow-hidden bg-surface">
                     <img
                       src={image}
-                      alt={`${title} by Lee Wood Interior`}
+                      alt={altText}
+                      loading="lazy"
                       className="size-full object-cover object-center"
                     />
-                    <span className="absolute left-5 top-5 grid size-10 place-items-center bg-foreground text-[9px] font-semibold text-primary">
+                    <span className="absolute left-5 top-5 grid size-10 place-items-center bg-foreground text-xs font-semibold text-primary">
                       {number}
                     </span>
                   </div>
@@ -94,7 +104,7 @@ export default function ServicesPage() {
       <section className="bg-secondary">
         <div className="site-container grid gap-14 py-20 lg:grid-cols-12 lg:gap-8 lg:py-28">
           <ScrollReveal className="lg:col-span-5">
-            <SectionLabel>02 / Project scope</SectionLabel>
+            <SectionLabel>03 / Project scope</SectionLabel>
             <h2 className="section-title mt-8">
               One room or a<br />
               complete interior.

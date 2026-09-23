@@ -1,6 +1,27 @@
-import { ArrowRight, ArrowUpRight, Check, Instagram, Loader2, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  Instagram,
+  Loader2,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
 import { useState, type FormEvent, type ReactNode } from "react";
-import { PageIntro, SiteFooter, instagramUrl, mapUrl } from "@/components/site-chrome";
+import {
+  PageIntro,
+  SectionLabel,
+  SiteFooter,
+  emailUrl,
+  instagramUrl,
+  mapUrl,
+  phoneUrl,
+  studioEmail,
+  studioPhone,
+  whatsappUrl,
+} from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,17 +72,26 @@ export default function ContactPage() {
         if (!fieldErrors[key]) fieldErrors[key] = issue.message;
       }
       setErrors(fieldErrors);
+      const firstKey = result.error.issues[0]?.path[0];
+      if (firstKey) {
+        const elId = `contact-${firstKey
+          .toString()
+          .replace(/([A-Z])/g, "-$1")
+          .toLowerCase()}`;
+        document.getElementById(elId)?.focus();
+      }
       return;
     }
 
-    // ponytail: Web3Forms free tier (250 submissions/mo). Upgrade to own API endpoint when volume grows.
+    // ponytail: Web3Forms (250 free submissions/mo). Configure VITE_WEB3FORMS_KEY in .env.
     setSubmitting(true);
     try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY || "YOUR_WEB3FORMS_KEY";
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_KEY", // TODO: replace with real key from web3forms.com
+          access_key: accessKey,
           subject: `New enquiry from ${result.data.name}`,
           from_name: "Lee Wood Interior Website",
           ...result.data,
@@ -74,7 +104,7 @@ export default function ContactPage() {
       setBudget("");
     } catch {
       setSubmitError(
-        "We could not send your enquiry. Please try again, or contact Lee Wood through Instagram.",
+        "Could not submit enquiry online right now. Please call or WhatsApp our studio directly at +91 94470 00000 or email studio@leewoodinterior.com.",
       );
     } finally {
       setSubmitting(false);
@@ -101,6 +131,7 @@ export default function ContactPage() {
             <img
               src={contactImage}
               alt="Tropical residence illuminated at dusk"
+              loading="lazy"
               className="aspect-[4/5] w-full object-cover object-center"
             />
             <div className="grid gap-8 border border-t-0 border-border p-6 sm:grid-cols-2 sm:p-7">
@@ -116,17 +147,44 @@ export default function ContactPage() {
                   India
                 </address>
               </div>
-              <div className="flex flex-col items-start justify-end gap-4 text-[10px] font-semibold uppercase">
+              <div className="flex flex-col items-start justify-end gap-3 text-[10px] font-semibold uppercase">
+                <a
+                  href={phoneUrl}
+                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                >
+                  <Phone size={14} />
+                  {studioPhone}
+                </a>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                >
+                  <MessageCircle size={14} />
+                  WhatsApp
+                  <ArrowUpRight
+                    size={12}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                  />
+                </a>
+                <a
+                  href={emailUrl}
+                  className="group inline-flex items-center gap-2 hover:text-primary-readable"
+                >
+                  <Mail size={14} />
+                  {studioEmail}
+                </a>
                 <a
                   href={mapUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="group inline-flex items-center gap-2 hover:text-primary-readable"
                 >
-                  <MapPin size={15} />
+                  <MapPin size={14} />
                   Get directions
                   <ArrowUpRight
-                    size={13}
+                    size={12}
                     className="transition-transform duration-300 group-hover:translate-x-0.5"
                   />
                 </a>
@@ -136,10 +194,10 @@ export default function ContactPage() {
                   rel="noreferrer"
                   className="group inline-flex items-center gap-2 hover:text-primary-readable"
                 >
-                  <Instagram size={15} />
+                  <Instagram size={14} />
                   Instagram
                   <ArrowUpRight
-                    size={13}
+                    size={12}
                     className="transition-transform duration-300 group-hover:translate-x-0.5"
                   />
                 </a>
@@ -171,10 +229,8 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={onSubmit} noValidate>
                 <div className="mb-10 border-b border-foreground/15 pb-7">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.06em] text-primary-readable">
-                    Project brief
-                  </p>
-                  <h2 className="mt-5 font-display text-4xl font-medium leading-none sm:text-[46px] lg:whitespace-nowrap">
+                  <SectionLabel>Project brief</SectionLabel>
+                  <h2 className="mt-5 font-display text-4xl font-medium leading-tight sm:text-[46px]">
                     Tell us what you need
                   </h2>
                 </div>
@@ -182,7 +238,7 @@ export default function ContactPage() {
                   name="website"
                   className="sr-only"
                   tabIndex={-1}
-                  autoComplete="off"
+                  autoComplete="new-password"
                   aria-hidden="true"
                 />
                 <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
@@ -193,6 +249,8 @@ export default function ContactPage() {
                       autoComplete="name"
                       maxLength={100}
                       placeholder="Full name"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
                       className={fieldClass}
                     />
                   </Field>
@@ -204,6 +262,8 @@ export default function ContactPage() {
                       autoComplete="email"
                       maxLength={255}
                       placeholder="you@example.com"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "contact-email-error" : undefined}
                       className={fieldClass}
                     />
                   </Field>
@@ -215,6 +275,8 @@ export default function ContactPage() {
                       autoComplete="tel"
                       maxLength={30}
                       placeholder="+91"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? "contact-phone-error" : undefined}
                       className={fieldClass}
                     />
                   </Field>
@@ -228,12 +290,23 @@ export default function ContactPage() {
                       name="projectLocation"
                       maxLength={150}
                       placeholder="Town or district"
+                      aria-invalid={!!errors.projectLocation}
+                      aria-describedby={
+                        errors.projectLocation ? "contact-location-error" : undefined
+                      }
                       className={fieldClass}
                     />
                   </Field>
                   <Field id="contact-project-type" label="Project type" error={errors.projectType}>
                     <Select value={projectType} onValueChange={setProjectType}>
-                      <SelectTrigger id="contact-project-type" className={fieldClass}>
+                      <SelectTrigger
+                        id="contact-project-type"
+                        className={fieldClass}
+                        aria-invalid={!!errors.projectType}
+                        aria-describedby={
+                          errors.projectType ? "contact-project-type-error" : undefined
+                        }
+                      >
                         <SelectValue placeholder="Select project" />
                       </SelectTrigger>
                       <SelectContent>
@@ -247,7 +320,12 @@ export default function ContactPage() {
                   </Field>
                   <Field id="contact-budget" label="Estimated budget" error={errors.budget}>
                     <Select value={budget} onValueChange={setBudget}>
-                      <SelectTrigger id="contact-budget" className={fieldClass}>
+                      <SelectTrigger
+                        id="contact-budget"
+                        className={fieldClass}
+                        aria-invalid={!!errors.budget}
+                        aria-describedby={errors.budget ? "contact-budget-error" : undefined}
+                      >
                         <SelectValue placeholder="Select range" />
                       </SelectTrigger>
                       <SelectContent>
@@ -266,6 +344,8 @@ export default function ContactPage() {
                         name="message"
                         maxLength={1500}
                         placeholder="Rooms, requirements, timeline, and anything else we should know"
+                        aria-invalid={!!errors.message}
+                        aria-describedby={errors.message ? "contact-message-error" : undefined}
                         className="min-h-36 resize-y rounded-none border-foreground/20 bg-transparent px-3.5 py-3 text-[15px] leading-6 text-foreground shadow-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-0"
                       />
                     </Field>
@@ -279,7 +359,7 @@ export default function ContactPage() {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="group mt-8 h-[50px] min-w-40 rounded-none bg-foreground px-6 text-[10px] font-semibold uppercase text-background transition-colors duration-300 hover:bg-foreground/90"
+                  className="group mt-8 h-[50px] min-w-40 rounded-none bg-foreground px-6 text-[10px] font-semibold uppercase text-background transition-colors duration-300 hover:bg-foreground/90 press-scale"
                 >
                   {submitting ? (
                     <>
@@ -324,7 +404,7 @@ function Field({
       </Label>
       {children}
       {error && (
-        <p className="text-xs text-destructive" role="alert">
+        <p id={`${id}-error`} className="text-xs text-destructive" role="alert">
           {error}
         </p>
       )}

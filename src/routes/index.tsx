@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useEffect } from "react";
 import { ArrowDown, ArrowRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/scroll-reveal";
@@ -32,6 +33,10 @@ const categories = [
 ] as const;
 
 export default function HomePage() {
+  useEffect(() => {
+    document.title = "Lee Wood Interior — Interior Architecture in Kannur";
+  }, []);
+
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <div className="site-container">
@@ -39,7 +44,7 @@ export default function HomePage() {
       </div>
 
       <section className="site-container pb-4 pt-8 lg:pt-10">
-        <div className="grid bg-card lg:h-[clamp(650px,82vh,760px)] lg:grid-cols-[41%_59%]">
+        <div className="grid bg-card lg:h-[clamp(650px,82vh,760px)] lg:grid-cols-[2fr_3fr]">
           <div className="flex min-h-[34rem] min-w-0 flex-col justify-center gap-12 px-6 py-12 sm:px-10 lg:px-12 xl:px-16">
             <div className="reveal-up">
               <SectionLabel>Interior architecture / Kannur</SectionLabel>
@@ -57,7 +62,7 @@ export default function HomePage() {
               <Button
                 asChild
                 variant="ghost"
-                className="group mt-7 h-auto rounded-none p-0 hover:bg-transparent hover:text-primary-readable"
+                className="group mt-7 h-auto rounded-none p-0 hover:bg-transparent hover:text-primary-readable press-scale"
               >
                 <Link to="/gallery">
                   <span className="grid size-13 shrink-0 place-items-center rounded-full border border-foreground/22 transition-colors group-hover:border-primary group-hover:bg-primary">
@@ -83,9 +88,10 @@ export default function HomePage() {
         <a
           href="#studio"
           aria-label="Discover the studio"
-          className="mx-auto mt-5 hidden w-fit text-foreground/40 hover:text-primary-readable lg:block"
+          className="mx-auto mt-6 flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-[0.06em] text-foreground/75 transition-colors hover:text-primary-readable"
         >
-          <ArrowDown size={17} />
+          <span>Scroll</span>
+          <ArrowDown size={14} />
         </a>
       </section>
 
@@ -96,6 +102,7 @@ export default function HomePage() {
               <img
                 src={aboutImage}
                 alt="Lee Wood living and dining interior"
+                loading="lazy"
                 className="size-full object-cover object-center"
               />
             </div>
@@ -116,11 +123,11 @@ export default function HomePage() {
               live.
             </h2>
             <p className="body-copy mt-8">
-              Lee Wood Interior creates thoughtful environments where storage, movement, texture,
-              and light work together. Every decision begins with the room and the people who use
-              it.
+              We design calm, tailored spaces where storage, movement, texture, and light function
+              as one considered architectural whole. Every decision begins with the room and the
+              people who use it.
             </p>
-            <div className="micro-copy mt-9 grid grid-cols-2 gap-6 border-t border-border pt-6 text-foreground/52">
+            <div className="micro-copy mt-9 grid grid-cols-2 gap-6 border-t border-border pt-6 text-foreground/75">
               <span>
                 Homes
                 <br />& offices
@@ -140,14 +147,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-foreground text-background">
+      <section className="bg-surface-dark text-surface-dark-foreground">
         <div className="site-container py-20 lg:py-28">
-          <div className="grid gap-8 border-b border-background/16 pb-10 lg:grid-cols-12 lg:items-end">
+          <div className="grid gap-8 border-b border-surface-dark-foreground/16 pb-10 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
               <SectionLabel light>02 / Architecture</SectionLabel>
               <h2 className="section-title mt-8">Spaces with purpose.</h2>
             </div>
-            <p className="text-[15px] leading-7 text-background/72 lg:col-span-4 lg:col-start-9">
+            <p className="text-[15px] leading-7 text-surface-dark-foreground/75 lg:col-span-4 lg:col-start-9">
               From functional planning to material detail, each interior is made as one considered
               whole.
             </p>
@@ -155,19 +162,22 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {categories.map(([number, title, image, copy]) => (
               <ScrollReveal key={title}>
-                <article className="group relative aspect-[4/5] min-h-[28rem] overflow-hidden">
+                <article className="group relative aspect-[4/5] w-full overflow-hidden">
                   <img
                     src={image}
                     alt={`${title} by Lee Wood Interior`}
+                    loading="lazy"
                     className="absolute inset-0 size-full object-cover brightness-105 transition-transform duration-700 group-hover:scale-[1.025]"
                   />
-                  <div className="absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,transparent,color-mix(in_oklab,var(--foreground)_82%,transparent))]" />
+                  <div className="absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,transparent,color-mix(in_oklab,var(--surface-dark)_85%,transparent))]" />
                   <div className="absolute inset-x-0 bottom-0 p-7 lg:p-8">
-                    <span className="micro-copy text-primary">{number}</span>
+                    <span className="micro-copy text-primary-on-dark">{number}</span>
                     <h3 className="mt-4 font-display text-[clamp(1.35rem,2vw,1.8rem)] font-medium">
                       {title}
                     </h3>
-                    <p className="mt-4 max-w-sm text-sm leading-6 text-background/80">{copy}</p>
+                    <p className="mt-4 max-w-sm text-sm leading-6 text-surface-dark-foreground/85">
+                      {copy}
+                    </p>
                   </div>
                 </article>
               </ScrollReveal>
@@ -177,7 +187,7 @@ export default function HomePage() {
             <Button
               asChild
               variant="outline"
-              className="editorial-button border-background/35 bg-transparent text-background hover:bg-primary hover:text-primary-foreground"
+              className="editorial-button border-surface-dark-foreground/35 bg-transparent text-surface-dark-foreground hover:bg-primary hover:text-primary-foreground press-scale"
             >
               <Link to="/services">
                 Explore services <ArrowRight />
@@ -187,28 +197,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative min-h-[42rem] overflow-hidden text-background lg:min-h-[46rem]">
+      <section className="relative min-h-[42rem] overflow-hidden text-surface-dark-foreground lg:min-h-[46rem]">
         <img
           src={ctaImage}
           alt="Tropical residence at dusk"
+          loading="lazy"
           className="absolute inset-0 size-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklab,var(--foreground)_82%,transparent),color-mix(in_oklab,var(--foreground)_38%,transparent)_52%,transparent_76%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklab,var(--surface-dark)_85%,transparent),color-mix(in_oklab,var(--surface-dark)_45%,transparent)_52%,transparent_76%)]" />
         <div className="site-container relative flex min-h-[42rem] flex-col justify-center py-20 lg:min-h-[46rem]">
           <SectionLabel light>03 / Project enquiries</SectionLabel>
-          <h2 className="section-title mt-8 max-w-4xl text-background">
+          <h2 className="section-title mt-8 max-w-4xl text-surface-dark-foreground">
             Let the space
             <br />
             become yours.
           </h2>
-          <p className="mt-8 max-w-lg text-[15px] leading-7 text-background/82">
+          <p className="mt-8 max-w-lg text-[15px] leading-7 text-surface-dark-foreground/85">
             Visit Lee Wood Interior in Pilathara, Kannur, or tell us about your project and let us
             shape it from the first idea.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Button
               asChild
-              className="editorial-button bg-primary text-primary-foreground hover:bg-primary/90"
+              className="editorial-button bg-primary text-primary-foreground hover:bg-primary/90 press-scale"
             >
               <Link to="/contact">
                 Start an enquiry <ArrowRight />
@@ -217,7 +228,7 @@ export default function HomePage() {
             <Button
               asChild
               variant="outline"
-              className="editorial-button border-background/50 bg-transparent text-background hover:bg-background hover:text-foreground"
+              className="editorial-button border-surface-dark-foreground/50 bg-transparent text-surface-dark-foreground hover:bg-surface-dark-foreground hover:text-surface-dark press-scale"
             >
               <a href={mapUrl} target="_blank" rel="noreferrer">
                 <MapPin />
