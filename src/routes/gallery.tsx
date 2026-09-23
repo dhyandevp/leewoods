@@ -8,7 +8,13 @@ import wardrobe from "@/assets/lee-wood-wardrobe.jpg";
 import living from "@/assets/lee-wood-living.jpg";
 import cta from "@/assets/lee-wood-cta.jpg";
 
-const categories = ["All", "Kitchens", "Wardrobes", "Living & Work", "Complete Residences"] as const;
+const categories = [
+  "All",
+  "Kitchens",
+  "Wardrobes",
+  "Living & Work",
+  "Complete Residences",
+] as const;
 type Category = (typeof categories)[number];
 
 const projects = [
@@ -161,7 +167,9 @@ export default function GalleryPage() {
               className={`group border border-border bg-card p-4 transition-all duration-300 hover:border-forest/40 ${project.span}`}
             >
               <article className="flex h-full flex-col justify-between">
-                <div className={`image-reveal relative ${project.aspect} overflow-hidden bg-secondary`}>
+                <div
+                  className={`image-reveal relative ${project.aspect} overflow-hidden bg-secondary`}
+                >
                   <img
                     src={project.image}
                     alt={`${project.title} — ${project.category} by Lee Wood Interior`}

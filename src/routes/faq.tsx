@@ -65,7 +65,9 @@ function QuestionGroup({
   return (
     <section>
       <SectionLabel>{label}</SectionLabel>
-      <h2 className="mt-4 font-display text-3xl font-medium text-foreground sm:text-4xl">{title}</h2>
+      <h2 className="mt-4 font-display text-3xl font-medium text-foreground sm:text-4xl">
+        {title}
+      </h2>
       <Accordion type="single" collapsible className="mt-8 border-t border-border">
         {questions.map(([q, a], i) => (
           <AccordionItem key={q} value={`${label}-${i}`} className="border-border">
@@ -110,7 +112,11 @@ export default function FaqPage() {
             <QuestionGroup label="01 / Planning" title="Your space & scope" questions={planning} />
           </div>
           <div>
-            <QuestionGroup label="02 / Craft & Materials" title="Execution & quality" questions={services} />
+            <QuestionGroup
+              label="02 / Craft & Materials"
+              title="Execution & quality"
+              questions={services}
+            />
           </div>
         </div>
       </section>

@@ -73,7 +73,10 @@ const scopeItems = [
   { title: "Modular Kitchen Architecture", desc: "Wet & dry kitchen zones, islands, pantries" },
   { title: "Master Suites & Wardrobes", desc: "Walk-in closets, vanity suites, integrated beds" },
   { title: "Living & Media Joinery", desc: "Acoustic consoles, bookcases, partition screens" },
-  { title: "Commercial & Studio Spaces", desc: "Executive suites, boutique retail, creative offices" },
+  {
+    title: "Commercial & Studio Spaces",
+    desc: "Executive suites, boutique retail, creative offices",
+  },
   { title: "Bespoke Furniture Works", desc: "Dining tables, credenzas, custom seating in teak" },
 ];
 
@@ -104,8 +107,8 @@ export default function ServicesPage() {
               Designed as a <span className="text-bronze">whole.</span>
             </h2>
             <p className="body-copy mt-4 text-foreground/75">
-              Each commission receives individual design attention. We do not use prefabricated catalog
-              templates; every cabinet and junction is drawn for its specific room.
+              Each commission receives individual design attention. We do not use prefabricated
+              catalog templates; every cabinet and junction is drawn for its specific room.
             </p>
           </div>
 
@@ -186,8 +189,9 @@ export default function ServicesPage() {
               <span className="text-bronze">complete interior.</span>
             </h2>
             <p className="body-copy mt-6 text-foreground/75">
-              Whether you require a single high-performance kitchen or a turnkey residential interior,
-              we adjust our engagement structure to match your project's architectural stage.
+              Whether you require a single high-performance kitchen or a turnkey residential
+              interior, we adjust our engagement structure to match your project's architectural
+              stage.
             </p>
             <div className="mt-8">
               <Button
@@ -203,10 +207,7 @@ export default function ServicesPage() {
 
           <div className="grid content-start gap-px bg-border sm:grid-cols-2 lg:col-span-7">
             {scopeItems.map((item, i) => (
-              <div
-                key={item.title}
-                className="flex flex-col justify-between bg-card p-6 sm:p-7"
-              >
+              <div key={item.title} className="flex flex-col justify-between bg-card p-6 sm:p-7">
                 <span className="font-mono text-xs font-semibold text-bronze">0{i + 1}</span>
                 <div className="mt-6">
                   <h4 className="font-display text-lg font-medium text-foreground">{item.title}</h4>

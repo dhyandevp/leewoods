@@ -72,8 +72,8 @@ export default function AboutPage() {
               <span className="text-bronze">design.</span>
             </h2>
             <p className="body-copy mt-6 text-foreground/75">
-              We reject transient decorative trends in favor of architectural permanence,
-              functional clarity, and unforced quiet luxury.
+              We reject transient decorative trends in favor of architectural permanence, functional
+              clarity, and unforced quiet luxury.
             </p>
           </ScrollReveal>
 
@@ -130,9 +130,9 @@ export default function AboutPage() {
             </h2>
             <p className="mt-6 text-[15px] leading-relaxed text-ivory/80">
               Operating from Pilathara, Cheruthazham, Lee Wood Interior specializes in responsive
-              architecture calibrated for Malabar’s coastal microclimate. We engineer bespoke joinery
-              to withstand high seasonal humidity, prioritize natural cross-ventilation, and source
-              sustainable solid timbers.
+              architecture calibrated for Malabar’s coastal microclimate. We engineer bespoke
+              joinery to withstand high seasonal humidity, prioritize natural cross-ventilation, and
+              source sustainable solid timbers.
             </p>
             <div className="mt-8 flex flex-col gap-4 border-t border-white/14 pt-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-start gap-3">

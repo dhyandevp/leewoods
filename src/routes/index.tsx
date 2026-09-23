@@ -90,8 +90,8 @@ export default function HomePage() {
 
             <div className="mt-12 max-w-md border-t border-border pt-8">
               <p className="text-[15px] leading-relaxed text-foreground/75 sm:text-base">
-                Warm, restrained architectural interiors shaped around daily life—from modular kitchens
-                and custom wardrobes to complete residences in Kannur, Kerala.
+                Warm, restrained architectural interiors shaped around daily life—from modular
+                kitchens and custom wardrobes to complete residences in Kannur, Kerala.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button
@@ -346,17 +346,25 @@ export default function HomePage() {
 
             <div className="space-y-6 lg:col-span-4">
               <div className="border-t border-border pt-4">
-                <span className="text-xs uppercase tracking-wider text-foreground/50">Typology</span>
-                <p className="mt-1 text-sm font-medium text-foreground">Private Tropical Residence</p>
+                <span className="text-xs uppercase tracking-wider text-foreground/50">
+                  Typology
+                </span>
+                <p className="mt-1 text-sm font-medium text-foreground">
+                  Private Tropical Residence
+                </p>
               </div>
               <div className="border-t border-border pt-4">
-                <span className="text-xs uppercase tracking-wider text-foreground/50">Disciplines</span>
+                <span className="text-xs uppercase tracking-wider text-foreground/50">
+                  Disciplines
+                </span>
                 <p className="mt-1 text-sm font-medium text-foreground">
                   Modular Kitchen · Master Suite · Fluted Teak Wall Cladding
                 </p>
               </div>
               <div className="border-t border-border pt-4">
-                <span className="text-xs uppercase tracking-wider text-foreground/50">Materials</span>
+                <span className="text-xs uppercase tracking-wider text-foreground/50">
+                  Materials
+                </span>
                 <p className="mt-1 text-sm font-medium text-foreground">
                   Honed Granite · Solid Teak · Brushed Brass · Belgian Linen
                 </p>

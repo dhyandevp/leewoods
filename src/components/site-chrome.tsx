@@ -30,12 +30,7 @@ export const emailUrl = "mailto:studio@leewoodinterior.com";
 export const studioPhone = "+91 94470 00000";
 export const studioEmail = "studio@leewoodinterior.com";
 
-export function Wordmark({
-  light = false,
-}: {
-  light?: boolean;
-  compact?: boolean;
-}) {
+export function Wordmark({ light = false }: { light?: boolean; compact?: boolean }) {
   return (
     <Link
       to="/"

@@ -32,9 +32,11 @@
 ### Task 1: Stitch MCP Setup & Design System Asset Creation
 
 **Files:**
+
 - Create: `stitch/DESIGN.md`
 
 **Interfaces:**
+
 - Produces: Stitch project ID and remote design system asset with tokens matching the spec.
 
 - [ ] **Step 1: Write `stitch/DESIGN.md` containing the Warm Architectural Minimalism design system**
@@ -48,10 +50,12 @@
 ### Task 2: Design System Token & Typography Infrastructure in Codebase
 
 **Files:**
+
 - Modify: `src/styles.css`
 - Modify: `index.html`
 
 **Interfaces:**
+
 - Produces: `--color-background` (`#F3F0E8`), `--color-foreground` (`#062018`), `--color-bronze` (`#B98A4A`), `--color-muted` (`#68716C`), `--color-footer` (`#062018`), updated typography scales and grid utilities.
 
 - [ ] **Step 1: Verify Google Fonts in `index.html` loads `Manrope` (400, 500, 600) and `Instrument Sans` (400, 500, 600)**
@@ -66,9 +70,11 @@
 ### Task 3: Global Header, Wordmark, and Footer Redesign
 
 **Files:**
+
 - Modify: `src/components/site-chrome.tsx`
 
 **Interfaces:**
+
 - Consumes: Design tokens from `src/styles.css`
 - Produces: `Wordmark` (strictly `LEE WOOD INTERIOR`), `SiteHeader`, `SiteFooter`, `PageIntro`, `EditorialCta`, `SectionLabel`.
 
@@ -84,9 +90,11 @@
 ### Task 4: Home Page Redesign
 
 **Files:**
+
 - Modify: `src/routes/index.tsx`
 
 **Interfaces:**
+
 - Consumes: `SiteHeader`, `SiteFooter`, `SectionLabel`, `Wordmark` from `src/components/site-chrome.tsx`
 - Produces: Home page route (`/`) matching spec sections 7–12.
 
@@ -104,9 +112,11 @@
 ### Task 5: Studio / About Page Redesign
 
 **Files:**
+
 - Modify: `src/routes/about.tsx`
 
 **Interfaces:**
+
 - Consumes: `SiteHeader`, `SiteFooter`, `SectionLabel`
 - Produces: Studio page route (`/about` or `/studio`) matching spec section 13.
 
@@ -122,9 +132,11 @@
 ### Task 6: Services Page Redesign
 
 **Files:**
+
 - Modify: `src/routes/services.tsx`
 
 **Interfaces:**
+
 - Consumes: `SiteHeader`, `SiteFooter`, `SectionLabel`
 - Produces: Services page route (`/services`) matching spec section 14.
 
@@ -140,9 +152,11 @@
 ### Task 7: Gallery & Portfolio Page Redesign
 
 **Files:**
+
 - Modify: `src/routes/gallery.tsx`
 
 **Interfaces:**
+
 - Consumes: `SiteHeader`, `SiteFooter`
 - Produces: Gallery route (`/gallery` and `/projects`) matching spec section 15.
 
@@ -158,10 +172,12 @@
 ### Task 8: FAQ & Contact Pages Redesign
 
 **Files:**
+
 - Modify: `src/routes/faq.tsx`
 - Modify: `src/routes/contact.tsx`
 
 **Interfaces:**
+
 - Consumes: `SiteHeader`, `SiteFooter`
 - Produces: FAQ route (`/faq`) and Contact route (`/contact`) matching spec sections 16 & 17.
 
@@ -175,9 +191,11 @@
 ### Task 9: Final Quality Gate, Contrast & Viewport Verification
 
 **Files:**
+
 - All routes and components
 
 **Interfaces:**
+
 - Produces: Verified production build, browser screenshots at 1440px and 390px, accessibility contrast audit.
 
 - [ ] **Step 1: Run production build `npm run build` and ensure clean output**
